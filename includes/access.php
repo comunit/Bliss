@@ -1,0 +1,3 @@
+<h3 class="text-center" style="padding-top: 10px; font-family: 'OleoScript-Regular';">Accessibility Policy</h3>
+<p style="font-size:15px;text-align: left;font-family: inherit; padding: 17px;
+    padding-top: 16px;">We are working to make the our site as accessible as possible to be used by everybody. You will notice changes to the site over the coming months to help with navigation, reading text, colour schemes and use of screen readers. 
