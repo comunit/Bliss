@@ -41,7 +41,7 @@ $takaRate =  ($products['price'] * $taka['rate']);
                 <?= $products['title'] ?>
               </h1>
               <p>
-                <?= $products['description'] ?>
+                <?= html_entity_decode($products['description'])?>
               </p>
               <div class="star-on">
 
@@ -54,7 +54,7 @@ $takaRate =  ($products['price'] * $taka['rate']);
               <label class="add-to item_price">£
                 <?= $products['price']?>
               </label>
-              <span class="label label-primary">Taka: <?= round($takaRate, 2) ?></span>
+              <span class="label label-primary">Taka: <?= number_format($takaRate, 2) ?></span>
 
               <span id='model_errors' class="bg-danger"></span>
               <form action="add_cart" method="post" id="add_product_form">

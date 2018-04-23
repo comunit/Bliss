@@ -1,6 +1,6 @@
 <?php
 session_start();
-$db = mysqli_connect('localhost','root','123456','appareldatabase2');
+$db = mysqli_connect('localhost','root','','appareldatabase2');
 if (mysqli_connect_errno()) {
 	echo 'Data connection failed with following error:'. mysqli_connect_error();
 	die();

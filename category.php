@@ -33,7 +33,7 @@ $taka = mysqli_fetch_assoc($takasql);
 						<div class="price">
 								<h5 class="item_price" style="float: right;">£<?= $products['price'] ?></h5>
 								<?php $takaRate =  ($products['price'] * $taka['rate']); ?>
-								<span class="label label-primary">Taka: <?= round($takaRate, 2) ?></span>
+								<span class="label label-primary">Taka: <?= number_format($takaRate, 2) ?></span>
 								
 								<div class="clearfix"> </div>
 						</div>

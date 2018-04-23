@@ -280,7 +280,6 @@ ul.callbacks_tabs.callbacks1_tabs {
 .col-md1 h3 {
   	font-size: 1.2em;
   	line-height: 1.1em;
-  	font-family: 'OleoScript-Regular';
   	text-align: center;
   	margin: 0 0 0.7em;
   	color: #000;
@@ -841,9 +840,7 @@ span.price-in1 {
 /*--single--*/
 .single-para h1{
 	font-size:1.5em;
-	color:#52D0C4;
 	line-height:1.5em;
-	  font-family: 'OleoScript-Regular';
 }
 label.add-to{
 	display:block;
@@ -852,7 +849,6 @@ label.add-to{
 }
 .single-para p{
 	font-size:0.9em;
-	color:#B2B2B2;
 	line-height:1.8em;
 }
 a.cart{
