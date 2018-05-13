@@ -6,9 +6,6 @@
 	 	<div class="slider">
 	    	<div class="callbacks_container">
 	      		<ul class="rslides" id="slider">
-	        		<li>
-	          			<img src="images/1.jpg" alt="">
-	       			 </li>
 			 		 <li>
 	          			<img src="images/3.jpg" alt="">   
 	       			 </li>

@@ -51,10 +51,9 @@ $takaRate =  ($products['price'] * $taka['rate']);
                 <div class="clearfix"> </div>
               </div>
 
-              <label class="add-to item_price">£
-                <?= $products['price']?>
+              <label class="add-to item_price">Taka: 
+                <?= number_format($takaRate, 2) ?>/-
               </label>
-              <span class="label label-primary">Taka: <?= number_format($takaRate, 2) ?></span>
 
               <span id='model_errors' class="bg-danger"></span>
               <form action="add_cart" method="post" id="add_product_form">

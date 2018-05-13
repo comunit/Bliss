@@ -2,6 +2,9 @@
       require_once 'core/init.php';
       include 'includes/headertag.php';
       include 'includes/head.php';
+      $sql2 = "SELECT * FROM taka";
+      $takasql = $db->query($sql2);
+      $taka = mysqli_fetch_assoc($takasql);
 
 if ($cart_id != '') {
 	$cartQ = $db->query("SELECT * FROM cart WHERE id = '{$cart_id}'");
@@ -36,7 +39,7 @@ if ($cart_id != '') {
            	$product_id = $item['id'];
            	$productQ = $db->query("SELECT * FROM products WHERE id = '{$product_id}'");
            	$product = mysqli_fetch_assoc($productQ);
-           	$sArray = explode(',',$product['sizes']);
+               $sArray = explode(',',$product['sizes']);
            	foreach($sArray as $sizeString){
            		$s = explode(':',$sizeString);
            		if($s[0] == $item['size']){
@@ -49,9 +52,7 @@ if ($cart_id != '') {
             <?php $photos1 = explode(',',$product['image']); ?>
 			<td class="ring-in"><a href="#" class="at-in"><img src=<?=$photos1[0];?> class="img-responsive" alt=""></a>
 			<div class="sed">
-				<h5><?=$product['title']?></h5>
-				<p><?=$product['description']?></p>
-			
+				<h5><?=$product['title']?></h5>	
 			</div>
 			<td>
 
@@ -62,17 +63,18 @@ if ($cart_id != '') {
             <?php else: ?>
             <span class="text-danger">Max Available</span>
             <?php endif; ?>
-			</td>		
-			<td><?=$product['price']?></td>
+			</td>	
+            <?php $takaRate =  ($product['price'] * $taka['rate']); ?>	
+			<td><?=money($takaRate);?></td>
 			<td><?=$item['size'];?></td>
-			<td><?=money($item['quantity'] * $product['price']);?></td>
+			<td><?=money($item['quantity'] * $takaRate);?></td>
 		  </tr>
 	<?php 
      $i++;
      $item_count += $item['quantity'];
-     $sub_total += ($product['price'] * $item['quantity']);
+     $sub_total += ($takaRate * $item['quantity']);
 	} 
-     if ($sub_total < 50) {
+     if ($sub_total < 1600) {
      $tax = TAXRATE;
      } else {
       $tax = TAXRATE2;
@@ -108,7 +110,7 @@ if ($cart_id != '') {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="checkoutModalLabel">Shipping Address</h4>
+        <h4 class="modal-title" id="checkoutModalLabel">Order Details</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -125,8 +127,8 @@ if ($cart_id != '') {
         				<input type="text" name="full_name" id="full_name" class="form-control">
         			</div>
         			<div class="from-group col-md-6">
-        				<label for="email">Email </label>
-        				<input type="email" name="email" id="email" class="form-control">
+        				<label for="number">Contact Number </label>
+        				<input type="number" name="number" id="number" class="form-control">
         			</div>
         			<div class="from-group col-md-6">
         				<label for="street">Street Address </label>
@@ -141,16 +143,8 @@ if ($cart_id != '') {
         				<input type="text" name="city" id="city" class="form-control" data-stripe="address_city">
         			</div>
         			<div class="from-group col-md-6">
-        				<label for="county">County </label>
-        				<input type="text" name="county" id="county" class="form-control" data-stripe="address_state">
-        			</div>
-        			<div class="from-group col-md-6">
-        				<label for="postcode">Post Code </label>
-        				<input type="text" name="postcode" id="postcode" class="form-control" data-stripe="address_zip">
-        			</div>
-        			<div class="from-group col-md-6">
-        				<label for="country">Country </label>
-        				<input type="text" name="country" id="country" class="form-control" data-stripe="address_country">
+        				<label for="comments">Comments </label>
+        				<input type="text" name="comments" id="comments" class="form-control" data-stripe="address_comments">
         			</div>
         		</div>
                 <div id="step2" style="display: none;">
@@ -182,8 +176,8 @@ if ($cart_id != '') {
                         <input type="text" name="postcode1" id="postcode1" class="form-control" data-stripe="address_zip">
                     </div>
                     <div class="from-group col-md-6">
-                        <label for="country">Country </label>
-                        <input type="text" name="country1" id="country1" class="form-control" data-stripe="address_country">
+                        <label for="comments">comments </label>
+                        <input type="text" name="comments1" id="comments1" class="form-control" data-stripe="address_comments">
                     </div>
 
                 </div>
@@ -224,11 +218,7 @@ if ($cart_id != '') {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="step1();" id="take1" style="display: none;">Back</button>
-        <button type="button" class="btn btn-primary" onclick="step2();" id="take2" style="display: none;">Back</button>
-        <button type="submit" class="btn btn-primary" id="checkout_button" style="display: none;">Check Out>></button>
-        <button type="button" class="btn btn-primary" onclick="check_address();" id="next_button" ">Next >></button>
-        <button type="button" class="btn btn-primary" onclick="check_address1();" id="next_button1" style="display: none;" ">Next >></button>
+        <button type="button" class="btn btn-primary" onclick="check_address();" id="next_button" ">Checkout >></button>
         </form>
       </div>
     </div>
@@ -240,36 +230,16 @@ if ($cart_id != '') {
     </div>
 </div>
 <script>
-function SetBilling() {
-    jQuery('#payment-errors').html("");
-                    jQuery('#street1').attr('data-stripe', '0');
-                    jQuery('#street21').attr('data-stripe', '0');
-                    jQuery('#city1').attr('data-stripe', '0');
-                    jQuery('#county1').attr('data-stripe', '0');
-                    jQuery('#postcode1').attr('data-stripe', '0');
-                    jQuery('#country1').attr('data-stripe', '0');
-                    jQuery('#payment-errors').html("");
-                    jQuery('#step1').css("display",'none');
-                    jQuery('#step2').css("display",'none');
-                    jQuery('#step3').css("display",'block');
-                    jQuery('#next_button').css("display",'none');
-                    jQuery('#take1').css("display",'none');
-                    jQuery('#take2').css("display",'inline-block');
-                    jQuery('#next_button').css("display",'none');
-                    jQuery('#next_button1').css("display",'none');
-                    jQuery('#checkout_button').css("display",'inline-block');
-                    jQuery('#checkoutModalLabel').html("Enter your card details")
-    }
 function check_address(){
         var data = {
             'full_name' : jQuery('#full_name').val(),
-            'email' : jQuery('#email').val(),
+            'number' : jQuery('#number').val(),
             'street' : jQuery('#street').val(),
             'street2' : jQuery('#street2').val(),
             'city' : jQuery('#city').val(),
             'county' : jQuery('#county').val(),
             'postcode' : jQuery('#postcode').val(),
-            'country' : jQuery('#country').val(),
+            'comments' : jQuery('#comments').val(),
         };
     jQuery.ajax({
              url : '/admin/parsers/check_address',
@@ -280,119 +250,14 @@ function check_address(){
                     jQuery('#payment-errors').html(data);
                 }
                 if (data == 'passed') {
-                    jQuery('#payment-errors').html("");
-                    jQuery('#step1').css("display",'none');
-                    jQuery('#step2').css("display",'block');
-                    jQuery('#take1').css("display",'inline-block');
-                    jQuery('#next_button').css("display",'none');
-                    jQuery('#next_button1').css("display",'inline-block');
-                    jQuery('#checkout_button').css("display",'none');
-                    jQuery('#checkoutModalLabel').html("Enter Billing Address")
-
+                    /// here goes checkout login
+                    var $form = $('#payment-form');
+                    $form.get(0).submit();
                 }
              },
              error : function(){alert("Something Went Wrong");},
     });
     }
-    function step1(){
-        jQuery('#payment-errors').html("");
-                    jQuery('#step1').css("display",'block');
-                    jQuery('#step2').css("display",'none');
-                    jQuery('#step3').css("display",'none');
-                    jQuery('#take1').css("display",'none');
-                    jQuery('#take2').css("display",'none');
-                    jQuery('#next_button').css("display",'inline-block');
-                    jQuery('#next_button1').css("display",'none');
-                    jQuery('#checkoutModalLabel').html("Shipping Address");
-    }
-    function step2(){
-        jQuery('#payment-errors').html("");
-                    jQuery('#step1').css("display",'none');
-                    jQuery('#step2').css("display",'block');
-                    jQuery('#step3').css("display",'none');
-                    jQuery('#next_button1').css("display",'inline-block');
-                    jQuery('#take1').css("display",'inline-block');
-                    jQuery('#take2').css("display",'none');
-                    jQuery('#uncheck').attr('checked', false); 
-                    jQuery('#checkout_button').css("display",'none');
-                    jQuery('#checkoutModalLabel').html("Billing Address");
-    }
-    function check_address1(){
-        var data = {
-            'full_name1' : jQuery('#full_name1').val(),
-            'street1' : jQuery('#street1').val(),
-            'street21' : jQuery('#street21').val(),
-            'city1' : jQuery('#city1').val(),
-            'county1' : jQuery('#county1').val(),
-            'postcode1' : jQuery('#postcode1').val(),
-            'country1' : jQuery('#country1').val(),
-        };
-    jQuery.ajax({
-             url : '/admin/parsers/check_address1',
-             method : 'post',
-             data : data,
-             success : function(data){
-                if(data != 'good'){
-                    jQuery('#payment-errors').html(data);
-                }
-                if (data == 'good') {
-                    jQuery('#payment-errors').html("");
-                    jQuery('#step1').css("display",'none');
-                    jQuery('#step2').css("display",'none');
-                    jQuery('#step3').css("display",'block');
-                    jQuery('#next_button').css("display",'none');
-                    jQuery('#take1').css("display",'none');
-                    jQuery('#take2').css("display",'inline-block');
-                    jQuery('#next_button').css("display",'none');
-                    jQuery('#next_button1').css("display",'none');
-                    jQuery('#checkout_button').css("display",'inline-block');
-                    jQuery('#checkoutModalLabel').html("Enter your card details")
-
-                }
-             },
-             error : function(){alert("Something Went Wrong");},
-    });
-    }
-
-
-Stripe.setPublishableKey('<?=STRIPE_PUBLIC;?>');
-
-function stripeResponseHandler(status, response) {
-  // Grab the form:
-  var $form = $('#payment-form');
-
-  if (response.error) { // Problem!
-
-    // Show the errors on the form:
-    $form.find('#payment-errors').text(response.error.message);
-    $form.find('button').prop('disabled', false); // Re-enable submission
-
-  } else { // Token was created!
-
-    // Get the token ID:
-    var token = response.id;
-
-    // Insert the token ID into the form so it gets submitted to the server:
-    $form.append($('<input type="hidden" name="stripeToken">').val(token));
-
-    // Submit the form:
-    $form.get(0).submit();
-  }
-};
-
-$(function() {
-  var $form = $('#payment-form');
-  $form.submit(function(event) {
-    // Disable the submit button to prevent repeated clicks:
-    $form.find('.submit').prop('disabled', true);
-
-    // Request a token from Stripe:
-    Stripe.card.createToken($form, stripeResponseHandler);
-
-    // Prevent the form from being submitted:
-    return false;
-  });
-});
 </script>
 <?php 
       include 'includes/footer.php';

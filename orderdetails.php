@@ -64,6 +64,10 @@
 		<h3 class="text-centre" style="text-align: center;">Order Details</h3><br>
 		<table class="table table-condensed table-striped table-bordered">
 			<tbody>
+			  <tr>
+					<td>Order Ref number</td>
+					<td><?=$txn['cart_id'];?></td>
+				</tr>
 				<tr>
 					<td>Sub Total</td>
 					<td><?=money($txn['sub_total']);?></td>
@@ -100,9 +104,10 @@
 	<h3 class="text-centre" style="text-align: center;">Shipping Address</h3><br>
 	<address style="text-align: center; font-weight: bold; font-size: x-large;">
 		<?=$txn['full_name'];?><br>
+		<?=$txn['email'];?><br>
 		<?=$txn['street'];?><br>
 		<?=($txn['street2'] != '')?$txn['street2'].'<br>':'';?>
-		<?=$txn['city'].', '.$txn['county'].' '.$txn['postcode'];?><br>
+		<?=$txn['city'].' '.$txn['county'].' '.$txn['postcode'];?><br>
 		<?=$txn['country'];?><br>
 	</address>
 </div>

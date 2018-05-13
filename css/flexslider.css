@@ -236,6 +236,11 @@ html[xmlns] .flexslider .slides {
   float: left;
   margin: 0 1% 0 0;
 }
+
+.flex-control-thumbs li:nth-child(4){
+	clear: both;
+}
+
 .flex-control-thumbs li:nth-child(4){
 	margin:0;
 }

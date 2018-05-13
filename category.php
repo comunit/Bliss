@@ -31,10 +31,8 @@ $taka = mysqli_fetch_assoc($takasql);
 						</a>
 						<h3><a href="productdisplay?id=<?= $products['id'] ?>"><?= $products['title'] ?></a></h3>
 						<div class="price">
-								<h5 class="item_price" style="float: right;">£<?= $products['price'] ?></h5>
-								<?php $takaRate =  ($products['price'] * $taka['rate']); ?>
-								<span class="label label-primary">Taka: <?= number_format($takaRate, 2) ?></span>
-								
+						    <?php $takaRate =  ($products['price'] * $taka['rate']); ?>	
+								<h5 class="item_price" style="float: right;">Taka: <?= number_format($takaRate, 2) ?>/-</h5>					
 								<div class="clearfix"> </div>
 						</div>
 					</div>

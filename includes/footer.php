@@ -21,8 +21,7 @@ $taka = mysqli_fetch_assoc($takasql);
 						<h3><a href="productdisplay?id=<?= $products['id'] ?>"><?= $products['title'] ?></a></h3>
 						<div class="price">
 							<?php $takaRate =  ($products['price'] * $taka['rate']); ?>
-								<h5 class="item_price" style="float: right;">£<?= $products['price'] ?></h5>
-								<span class="label label-primary">Taka: <?= number_format($takaRate, 2) ?></span>
+								<h5 class="item_price" style="float: right;">Taka: <?= number_format($takaRate, 2) ?>/-</h5>
 								<div class="clearfix"> </div>
 						</div>
 					</div><br>
@@ -63,16 +62,17 @@ $taka = mysqli_fetch_assoc($takasql);
 					</ul>
 				</div>
 				<div class="col-sm-3 footer-bottom-cate cate-bottom">
-					<h6>Our Address</h6>
+					<h6>Contact info</h6>
 					<ul>
-						<li>Unit-16</li>
-						<li>Nelson Business Centre</li>
-						<li>56-60 nelson Street,London</li>
-						<li>E1 2DE</li>
+						<li>Mobile:</li>
+						<li>01789339574</li>
+						<li>01733783709</li>
+						<li>E-mail:</li>
+						<li>info@blisscart.co.uk</li>
 					</ul>
 				</div>
 				<div class="clearfix"> </div>
-				<p class="footer-class"> © 2018 Apparel Manufacturer. All Rights Reserved</p>
+				<p class="footer-class"> © 2018 Blisscart Uk. All Rights Reserved</p>
 	        <script>
                 function update_cart(mode,edit_id,edit_size){
                 	var data = {"mode" : mode, "edit_id" : edit_id, "edit_size" : edit_size};

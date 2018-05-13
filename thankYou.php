@@ -1,28 +1,18 @@
 <?php 
 require_once 'core/init.php';
 
-// Set your secret key: remember to change this to your live secret key in production
-// See your keys here: https://dashboard.stripe.com/account/apikeys
-\Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
-
-// Get the credit card details submitted by the form
-$token = $_POST['stripeToken'];
-
 // Get the rest of the post data
 $full_name = sanitize($_POST['full_name']);
-$email = sanitize($_POST['email']);
+$number = sanitize($_POST['number']);
 $street = sanitize($_POST['street']);
 $street2 = sanitize($_POST['street2']);
 $city = sanitize($_POST['city']);
-$county = sanitize($_POST['county']);
-$postcode = sanitize($_POST['postcode']);
-$country = sanitize($_POST['country']);
+$comments = sanitize($_POST['comments']);
 $tax = sanitize($_POST['tax']);
 $sub_total = sanitize($_POST['sub_total']);
 $grand_total = sanitize($_POST['grand_total']);
 $cart_id = sanitize($_POST['cart_id']);
 $description = sanitize($_POST['description']);
-$charge_amount = number_format($grand_total,2) * 100;
 if(isset($_SESSION['SBUser1'])){
 $user_id = $user_id1;
 }
@@ -32,17 +22,6 @@ $metadata = array(
     "tax"        => $tax,
     "sub_total"  => $sub_total,
 	);
-
-// Create a charge: this will charge the user's card
-try {
-  $charge = \Stripe\Charge::create(array(
-    "amount" => $charge_amount, // Amount in cents
-    "currency" => CURRENCY,
-    "source" => $token,
-    "description" => $description,
-    "receipt_email" => $email,
-    "metadata" => $metadata)
-  );
 
 //adjust inventory
   $itemQ = $db->query("SELECT * FROM cart WHERE id = '{$cart_id}'");
@@ -68,8 +47,8 @@ try {
 
 $db->query("UPDATE cart SET paid = 1 WHERE id = '{$cart_id}'");
 $db->query("INSERT INTO transactions 
-	(charge_id,cart_id,full_name,email,street,street2,city,county,postcode,country,sub_total,tax,grand_total,description,txn_type,user_id) VALUES
-	('$charge->id','$cart_id','$full_name','$email','$street','$street2','$city','$county','$postcode','$country','$sub_total','$tax','$grand_total','$description','$charge->object','$user_id')");
+	(cart_id,full_name,email,street,street2,city,country,sub_total,tax,grand_total,description,user_id) VALUES
+	('$cart_id','$full_name','$number','$street','$street2','$city','$comments','$sub_total','$tax','$grand_total','$description','$user_id')");
 
 $domain = ($_SERVER['HTTP_HOST'] != 'localhost')? '.'.$_SERVER['HTTP_HOST']:false;
 setcookie(CART_COOKIE,'',1,'/',$domain,false);
@@ -254,12 +233,11 @@ ont-weight: normal; border-collapse: collapse; vertical-align: top; padding: 0; 
                             <table cellpadding="0" cellspacing="0" border="0" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; padding: 0; margin: 0;">
                                 <tr>
                                     <td class="email-heading" style="font-family: Verdana, Arial; font-weight: normal; border-collapse: collapse; vertical-align: top; padding: 0 1%; margin: 0; background: #e1f0f8; border-right: 1px dashed #c3ced4; text-align: center; width: 58%;">
-                                        <h1 style="font-family: Verdana, Arial; font-weight: 700; font-size: 16px; margin: 1em 0; line-height: 20px; text-transform: uppercase; margin-top: 25px; color: black;">Thank you for your order with apparel manufecturers.</h1>
+                                        <h1 style="font-family: Verdana, Arial; font-weight: 700; font-size: 16px; margin: 1em 0; line-height: 20px; text-transform: uppercase; margin-top: 25px; color: black;">Thank you for your order with Blisscart.</h1>
 
                                         <p style="font-fa=
-mily: Verdana, Arial; font-weight: normal; line-height: 20px; margin: 1em 0; color: black;">Your card has been successfully charged
-                                            <?=money($grand_total);?>. You have been emailed a reciept. Please check your spam folder if it is not
-                                                in your inbox. additionally you can print this page as a receipt.</p>
+mily: Verdana, Arial; font-weight: normal; line-height: 20px; margin: 1em 0; color: black;">Your order has been successfully received
+                                            . We will call you back on <?=$number;?> to take payment as we only accept payments on phone.</p>
                                     </td>
 
                                     <td class="store-info" style="font-family: Verdana, Arial; font-weight: normal; border-collapse: collapse; vertical-align=
@@ -310,10 +288,4 @@ op: 15px;">Your reciept number is
 </html>
 <?php
 include 'includes/footer.php';
-} catch(\Stripe\Error\Card $e) {
-  // The card has been declined
-	echo $e;
-}
-
-
  ?>
