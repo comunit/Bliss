@@ -14,6 +14,7 @@ if ($cart_id != '') {
 	$sub_total = 0;
 	$item_count = 0;
 }
+unset($_SESSION['indicator']);
 ?>
 <div class="container">
 	<div class="check-out">
@@ -120,7 +121,7 @@ if ($cart_id != '') {
         	 <input type="hidden" name="sub_total" value="<?=$sub_total;?>">
         	 <input type="hidden" name="grand_total" value="<?=$grand_total;?>">
         	 <input type="hidden" name="cart_id" value="<?=$cart_id;?>">
-        	 <input type="hidden" name="description" value="<?=$item_count.' item'.(($item_count>1)?'s':'').' from apparel manufuctrers.';?>">
+        	 <input type="hidden" name="description" value="<?=$item_count.' item'.(($item_count>1)?'s':'').' from Blisscart';?>">
         		<div id="step1" style="display: block;">
         			<div class="from-group col-md-6">
         				<label for="full_name">Full Name </label>

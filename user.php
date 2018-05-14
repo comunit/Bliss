@@ -5,7 +5,7 @@
       include 'includes/head.php';
       if(!is_logged_in1()){
       login_error_redirect1();
- }
+       }
        $hashed = $user_data1['password'];
 
        $old_password = ((isset($_POST['old_password']))?sanitize($_POST['old_password']):'');

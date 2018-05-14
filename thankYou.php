@@ -1,6 +1,14 @@
 <?php 
 require_once 'core/init.php';
 
+if(isset($_SESSION['indicator'])) 
+{
+  header("Location: user.php");
+}   
+else
+{
+$_SESSION['indicator'] = "processed"; 
+
 // Get the rest of the post data
 $full_name = sanitize($_POST['full_name']);
 $number = sanitize($_POST['number']);
@@ -54,6 +62,7 @@ $domain = ($_SERVER['HTTP_HOST'] != 'localhost')? '.'.$_SERVER['HTTP_HOST']:fals
 setcookie(CART_COOKIE,'',1,'/',$domain,false);
 include 'includes/head.php';
 include 'includes/headertag.php';
+}
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" style="background-color: #ebebeb;">
 
@@ -236,8 +245,8 @@ ont-weight: normal; border-collapse: collapse; vertical-align: top; padding: 0; 
                                         <h1 style="font-family: Verdana, Arial; font-weight: 700; font-size: 16px; margin: 1em 0; line-height: 20px; text-transform: uppercase; margin-top: 25px; color: black;">Thank you for your order with Blisscart.</h1>
 
                                         <p style="font-fa=
-mily: Verdana, Arial; font-weight: normal; line-height: 20px; margin: 1em 0; color: black;">Your order has been successfully received
-                                            . We will call you back on <?=$number;?> to take payment as we only accept payments on phone.</p>
+mily: Verdana, Arial; font-weight: normal; line-height: 20px; margin: 1em 0; color: black;">Your order has been successfully received . We will call you back on
+                                            <?=$number;?> to take payment as we only accept payments on phone.</p>
                                     </td>
 
                                     <td class="store-info" style="font-family: Verdana, Arial; font-weight: normal; border-collapse: collapse; vertical-align=
