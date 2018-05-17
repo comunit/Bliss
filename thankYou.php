@@ -242,7 +242,7 @@ ont-weight: normal; border-collapse: collapse; vertical-align: top; padding: 0; 
                             <table cellpadding="0" cellspacing="0" border="0" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; padding: 0; margin: 0;">
                                 <tr>
                                     <td class="email-heading" style="font-family: Verdana, Arial; font-weight: normal; border-collapse: collapse; vertical-align: top; padding: 0 1%; margin: 0; background: #e1f0f8; border-right: 1px dashed #c3ced4; text-align: center; width: 58%;">
-                                        <h1 style="font-family: Verdana, Arial; font-weight: 700; font-size: 16px; margin: 1em 0; line-height: 20px; text-transform: uppercase; margin-top: 25px; color: black;">Thank you for your order with Blisscart.</h1>
+                                        <h1 style="font-family: Verdana, Arial; font-weight: 700; font-size: 16px; margin: 1em 0; line-height: 20px; text-transform: uppercase; margin-top: 25px; color: black;">Thank you for your order with Blisscart.co.uk</h1>
 
                                         <p style="font-fa=
 mily: Verdana, Arial; font-weight: normal; line-height: 20px; margin: 1em 0; color: black;">Your order has been successfully received . We will call you back on
