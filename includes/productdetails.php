@@ -66,7 +66,7 @@ $takaRate =  ($products['price'] * $taka['rate']);
                   </div>
 
                   <div class="form-group col-lg-6">
-                    <label>Available Sizes</label>
+                    <label>Available</label>
                     <ul>
                       <li>
                         <select name="size" id="size">
