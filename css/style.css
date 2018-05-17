@@ -278,7 +278,7 @@ ul.callbacks_tabs.callbacks1_tabs {
     height: 207px;
 }
 .col-md1 h3 {
-  	font-size: 1.2em;
+    font-size: 18px;
   	line-height: 1.1em;
   	text-align: center;
   	margin: 0 0 0.7em;
@@ -314,6 +314,7 @@ ul.callbacks_tabs.callbacks1_tabs {
   border: 1px solid #CACACA;
   padding: 1em;
   border-bottom:5px solid #52D0C4;
+  min-height: 353px;
 }
 .col-md1:hover {
   border: 1px solid #000;

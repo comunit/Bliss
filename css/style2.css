@@ -1,0 +1,21 @@
+p {
+  font-size: 0.9em !important;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Verdana","Geneva",sans-serif !important;
+}
+
+h1 {
+  font-family: "Helvetica Neue",Helvetica,Arial,"Verdana","Geneva",sans-serif !important;
+}
+
+th {
+  color: black;
+  font-family: inherit;
+}
+
+.nv-table {
+  border: none !important;
+}
+
+td {
+  color: inherit !important;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Apparel Manufactuer</title>
+<title>Blisscart</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

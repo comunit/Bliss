@@ -5,7 +5,7 @@ if(isset($_GET['cat'])){
 	$id = '';
 }
 
-$sql2 = "SELECT * FROM categories WHERE id = '$id'";
+$sql2 = "SELECT * FROM categories WHERE id = '$id' AND hide = 0";
 $hquery = $db->query($sql2);
 $getParentId = mysqli_fetch_assoc($hquery);
 $parentId = $getParentId['parent'];
@@ -39,7 +39,7 @@ $parentId = $getParentId['parent'];
 </style>
 <div class="catname">
  <?php
-  $sql3 = "SELECT * FROM categories WHERE id = '$parentId'";
+  $sql3 = "SELECT * FROM categories WHERE id = '$parentId' AND hide = 0";
   $getCat = $db->query($sql3);
   $getCatName = mysqli_fetch_assoc($getCat);
  ?>
@@ -47,7 +47,7 @@ $parentId = $getParentId['parent'];
 </div>
 <div class="sidecat">
 <?php 
-  $sql4 = "SELECT * FROM categories WHERE parent = '$parentId'";
+  $sql4 = "SELECT * FROM categories WHERE parent = '$parentId' AND hide = 0";
   $getChild = $db->query($sql4);
 ?>
   <ul>
