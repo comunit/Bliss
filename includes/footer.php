@@ -38,7 +38,6 @@ $taka = mysqli_fetch_assoc($takasql);
 					<h6>Shopping with us</h6>
 					<ul>
 						<li><a href="delivery.php">Delivery Info</a></li>
-						<li><a href="size.php">Size Guides</a></li>
 						<li><a href="sitemap.php">Site Map</a></li>
 						
 					</ul>
@@ -73,6 +72,16 @@ $taka = mysqli_fetch_assoc($takasql);
 				</div>
 				<div class="clearfix"> </div>
 				<p class="footer-class"> © 2018 Blisscart Uk. All Rights Reserved</p>
+				<br>
+				<div class="container">
+				 <div class="row">
+				 <div class="col text-center">
+					 <a href="https://www.facebook.com/Bliss-Cart-175311783128711/?hc_ref=ARRQXKqdgP8G3geeuIJlOvmUp9UapH6j-QcAb7zrT3Jsrtuns1NrcX_g2Iq6ODiHVXE&fref=nf">
+					 <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/facebook_circle_color-48.png" alt="">
+					 </a>
+				 </div>
+				 </div>
+				</div>
 	        <script>
                 function update_cart(mode,edit_id,edit_size){
                 	var data = {"mode" : mode, "edit_id" : edit_id, "edit_size" : edit_size};
